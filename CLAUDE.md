@@ -47,3 +47,17 @@ The app uses three CDN libraries:
 - **Add new PDF tool**: Add tool button in index.html sidebar, corresponding panel, and handler in PDFProcessor
 - **Modify watermark**: Adjust the `addWatermark()` method in PDFProcessor (lines 388-450)
 - **Change CDN versions**: Update both index.html script tags and the PDF.js worker URL in app.js (line 7)
+
+## Git Push
+
+When pushing to remote, use GitHub token in URL due to credential issues:
+
+```bash
+gh auth token  # Get token if needed
+GIT_ASKPASS=/bin/echo git push -f https://TOKEN@github.com/Darkduck1/PDFclip.git main
+```
+
+Or set the token directly (get from `gh auth token`):
+```bash
+git push -f https://gho_your_token_here@github.com/Darkduck1/PDFclip.git main
+```
