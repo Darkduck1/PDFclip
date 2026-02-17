@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Clip - Professional PDF Processor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                <span>PDF Clip</span>
+            </div>
+            <p class="tagline">Not Professional PDF Processing Tool</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <h2>Drop your PDF here</h2>
+                    <p>or click to browse</p>
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                </div>
+            </section>
+
+            <!-- Editor Section -->
+            <section class="editor-section hidden" id="editorSection">
+                <div class="editor-layout">
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        <div class="file-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                            <div class="file-details">
+                                <span class="file-name" id="fileName">document.pdf</span>
+                                <span class="file-size" id="fileSize">0 KB</span>
+                            </div>
+                            <button class="btn-icon" id="closeFile" title="Close file">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <nav class="tools-nav">
+                            <button class="tool-btn active" data-tool="preview">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                Preview
+                            </button>
+                            <button class="tool-btn" data-tool="split">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="20" x2="18" y2="10"/>
+                                    <line x1="12" y1="20" x2="12" y2="4"/>
+                                    <line x1="6" y1="20" x2="6" y2="14"/>
+                                </svg>
+                                Split
+                            </button>
+                            <button class="tool-btn" data-tool="watermark">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                    <path d="M2 17l10 5 10-5"/>
+                                    <path d="M2 12l10 5 10-5"/>
+                                </svg>
+                                Watermark
+                            </button>
+                        </nav>
+
+                        <div class="sidebar-actions">
+                            <button class="btn btn-secondary" id="newFile">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="12" y1="18" x2="12" y2="12"/>
+                                    <line x1="9" y1="15" x2="15" y2="15"/>
+                                </svg>
+                                New File
+                            </button>
+                        </div>
+                    </aside>
+
+                    <!-- Main Panel -->
+                    <div class="main-panel">
+                        <!-- Preview Tool -->
+                        <div class="tool-panel active" id="previewTool">
+                            <div class="tool-header">
+                                <h3>PDF Preview</h3>
+                                <div class="page-controls">
+                                    <button class="btn-icon" id="prevPage" disabled>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="15 18 9 12 15 6"/>
+                                        </svg>
+                                    </button>
+                                    <span class="page-info">
+                                        Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
+                                    </span>
+                                    <button class="btn-icon" id="nextPage" disabled>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="9 18 15 12 9 6"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="preview-container">
+                                <canvas id="pdfCanvas"></canvas>
+                                <div class="preview-placeholder" id="previewPlaceholder">
+                                    <p>Loading preview...</p>
+                                </div>
+                            </div>
+                            <div class="zoom-controls">
+                                <button class="btn-icon" id="zoomOut">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"/>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                        <line x1="8" y1="11" x2="14" y2="11"/>
+                                    </svg>
+                                </button>
+                                <span id="zoomLevel">100%</span>
+                                <button class="btn-icon" id="zoomIn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"/>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                        <line x1="11" y1="8" x2="11" y2="14"/>
+                                        <line x1="8" y1="11" x2="14" y2="11"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Split Tool -->
+                        <div class="tool-panel" id="splitTool">
+                            <div class="tool-header">
+                                <h3>Split PDF</h3>
+                            </div>
+                            <div class="split-content">
+                                <div class="split-info">
+                                    <p>Extract specific pages from your PDF. Enter the page numbers you want to keep.</p>
+                                </div>
+                                <div class="page-range-selector">
+                                    <label>Page Range</label>
+                                    <div class="range-inputs">
+                                        <input type="number" id="startPage" min="1" placeholder="Start">
+                                        <span>to</span>
+                                        <input type="number" id="endPage" min="1" placeholder="End">
+                                    </div>
+                                    <p class="helper-text">Leave empty to extract all pages</p>
+                                </div>
+                                <div class="split-actions">
+                                    <button class="btn btn-primary" id="extractPages">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="7 10 12 15 17 10"/>
+                                            <line x1="12" y1="15" x2="12" y2="3"/>
+                                        </svg>
+                                        Extract Pages
+                                    </button>
+                                    <button class="btn btn-secondary" id="splitAll">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="7" height="7"/>
+                                            <rect x="14" y="3" width="7" height="7"/>
+                                            <rect x="14" y="14" width="7" height="7"/>
+                                            <rect x="3" y="14" width="7" height="7"/>
+                                        </svg>
+                                        Split All Pages
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Watermark Tool -->
+                        <div class="tool-panel" id="watermarkTool">
+                            <div class="tool-header">
+                                <h3>Add Watermark</h3>
+                            </div>
+                            <div class="watermark-content">
+                                <div class="form-group">
+                                    <label for="watermarkText">Watermark Text</label>
+                                    <input type="text" id="watermarkText" placeholder="Enter watermark text...">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="watermarkFont">Font</label>
+                                        <select id="watermarkFont">
+                                            <option value="Helvetica">Helvetica</option>
+                                            <option value="Times-Roman">Times Roman</option>
+                                            <option value="Courier">Courier</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="watermarkSize">Font Size</label>
+                                        <input type="number" id="watermarkSize" value="48" min="8" max="200">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="watermarkOpacity">Opacity</label>
+                                        <input type="range" id="watermarkOpacity" value="50" min="10" max="100">
+                                        <span id="opacityValue">50%</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="watermarkRotation">Rotation</label>
+                                        <input type="range" id="watermarkRotation" value="45" min="-90" max="90">
+                                        <span id="rotationValue">45°</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="watermarkColor">Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" id="watermarkColor" value="#808080">
+                                        <span id="colorHex">#808080</span>
+                                    </div>
+                                </div>
+                                <div class="watermark-actions">
+                                    <button class="btn btn-primary" id="applyWatermark">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                            <path d="M2 17l10 5 10-5"/>
+                                            <path d="M2 12l10 5 10-5"/>
+                                        </svg>
+                                        Apply Watermark
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Bar -->
+                        <div class="action-bar">
+                            <button class="btn btn-primary btn-lg" id="downloadPdf">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay hidden" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p id="loadingText">Processing...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
